@@ -1,0 +1,22 @@
+name: seccopy-publish
+arch: amd64
+platform: linux
+version: 0.1.0
+section: utils
+priority: optional
+maintainer: SecureCopy <seccopy@local>
+description: SecureCopy publish — build and PGP-sign a repository index
+contents:
+  - src: dist/linux-amd64/seccopy-publish
+    dst: /usr/bin/seccopy-publish
+    file_info:
+      mode: 0755
+depends:
+  - gnupg
+overrides:
+  apk:
+    depends:
+      - gnupg
+  deb:
+    depends:
+      - gnupg

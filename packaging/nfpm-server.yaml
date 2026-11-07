@@ -1,0 +1,44 @@
+name: seccopy-server
+arch: amd64
+platform: linux
+version: 0.1.0
+section: admin
+priority: optional
+maintainer: SecureCopy <seccopy@local>
+description: SecureCopy server — serve a signed directory tree over gRPC
+contents:
+  - src: dist/linux-amd64/seccopy-server
+    dst: /usr/bin/seccopy-server
+    file_info:
+      mode: 0755
+  - src: packaging/seccopy-server.sh
+    dst: /usr/lib/seccopy/seccopy-server.sh
+    file_info:
+      mode: 0755
+  - src: packaging/server.env.example
+    dst: /etc/seccopy/server.env.example
+    type: config
+    file_info:
+      mode: 0644
+  - src: packaging/seccopy-server.service
+    dst: /lib/systemd/system/seccopy-server.service
+    packager: deb
+  - src: packaging/seccopy-server.openrc
+    dst: /etc/init.d/seccopy-server
+    packager: apk
+    file_info:
+      mode: 0755
+  - src: docs/Nutzung.md
+    dst: /usr/share/doc/seccopy-server/Nutzung.md
+    packager: deb
+depends:
+  - gnupg
+overrides:
+  apk:
+    depends:
+      - gnupg
+  deb:
+    depends:
+      - gnupg
+scripts:
+  postinstall: packaging/server-postinstall.sh

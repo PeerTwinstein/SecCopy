@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package seccopy.v1;
+
+option go_package = "seccopy/internal/indexpb";
+
+// Index is the signed manifest of a repository tree.
+message Index {
+  // format_version is 1 for this layout.
+  uint32 format_version = 1;
+  // repo is the repository name (MVP: "default").
+  string repo = 2;
+  repeated Entry entries = 3;
+}
+
+enum EntryKind {
+  ENTRY_KIND_UNSPECIFIED = 0;
+  ENTRY_KIND_FILE = 1;
+  ENTRY_KIND_SYMLINK = 2;
+}
+
+message Entry {
+  // path is relative to the repo root, slash-separated, no leading slash.
+  string path = 1;
+  // blake3 is the 32-byte BLAKE3 hash of the file content, or of the
+  // symlink target bytes for ENTRY_KIND_SYMLINK.
+  bytes blake3 = 2;
+  uint64 size = 3;
+  // mode is the Unix permission bits (including setuid/setgid/sticky).
+  uint32 mode = 4;
+  EntryKind kind = 5;
+  // symlink_target is set only for ENTRY_KIND_SYMLINK (the raw target).
+  string symlink_target = 6;
+}

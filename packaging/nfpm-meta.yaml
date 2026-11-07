@@ -1,0 +1,23 @@
+name: seccopy
+arch: amd64
+platform: linux
+version: 0.1.0
+section: utils
+priority: optional
+maintainer: SecureCopy <seccopy@local>
+description: SecureCopy metapackage (client, server, publish)
+depends:
+  - seccopy-client
+  - seccopy-server
+  - seccopy-publish
+overrides:
+  apk:
+    depends:
+      - seccopy-client
+      - seccopy-server
+      - seccopy-publish
+  deb:
+    depends:
+      - seccopy-client
+      - seccopy-server
+      - seccopy-publish

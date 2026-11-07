@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package seccopy.v1;
+
+option go_package = "seccopy/internal/repopb";
+
+// Repo serves a published tree. Clients verify the signed index themselves;
+// GetIndex returns the exact published bytes, never a reconstructed subset.
+service Repo {
+  rpc GetIndex(GetIndexRequest) returns (GetIndexResponse);
+  rpc GetFile(GetFileRequest) returns (stream FileChunk);
+}
+
+message GetIndexRequest {
+  string repo = 1;
+}
+
+message GetIndexResponse {
+  bytes index = 1;
+  bytes signature = 2;
+}
+
+message GetFileRequest {
+  string repo = 1;
+  string path = 2;
+}
+
+message FileChunk {
+  bytes data = 1;
+}

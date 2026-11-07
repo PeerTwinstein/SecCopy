@@ -1,0 +1,22 @@
+name: seccopy-client
+arch: amd64
+platform: linux
+version: 0.1.0
+section: utils
+priority: optional
+maintainer: SecureCopy <seccopy@local>
+description: SecureCopy client — list and fetch a signed directory tree
+contents:
+  - src: dist/linux-amd64/seccopy-client
+    dst: /usr/bin/seccopy-client
+    file_info:
+      mode: 0755
+depends:
+  - gnupg
+overrides:
+  apk:
+    depends:
+      - gnupg
+  deb:
+    depends:
+      - gnupg

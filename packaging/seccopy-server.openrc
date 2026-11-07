@@ -1,0 +1,11 @@
+#!/sbin/openrc-run
+
+name="seccopy-server"
+description="SecureCopy repository server"
+command="/usr/lib/seccopy/seccopy-server.sh"
+command_background="yes"
+pidfile="/run/${RC_SVCNAME}.pid"
+
+depend() {
+	need net
+}
